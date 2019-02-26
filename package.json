@@ -1,0 +1,33 @@
+{
+  "name": "javascript-data-seeder",
+  "version": "0.1.0",
+  "description": "A tool for creating generated data arrays",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "webpack-dev-server",
+    "build": "webpack --target node --mode production",
+    "test": "npm run build && mocha --recursive ./test/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "css-loader": "^2.1.0",
+    "mocha": "^6.0.2",
+    "mocha-webpack": "^1.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  }
+}
