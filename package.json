@@ -1,15 +1,19 @@
 {
-  "name": "javascript-data-seeder",
+  "name": "jseeder",
   "version": "0.2.0",
   "description": "A tool for creating generated data arrays",
-  "main": "dist/index.js",
+  "main": "dist/jseeder.js",
   "scripts": {
     "dev-server": "webpack-dev-server --inline --progress",
     "build": "webpack --target node --mode development",
     "test": "npm run build && mocha --recursive ./test/**/*.js"
   },
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "unpkg": "dist/jseeder.js",
+  "author": "Denis Gribanov <2517.2la@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
@@ -32,5 +36,8 @@
       "@babel/env"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": ">=8.11.4"
+  }
 }

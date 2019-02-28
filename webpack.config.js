@@ -6,11 +6,12 @@ module.exports = {
 	entry: './src/index.js',
 	mode: 'development',
 	output: {
-		filename: './dataSeeder.js',
-		library: 'dataSeeder',
+		filename: './jseeder.js',
+		sourceMapFilename: 'jseeder.map',
+		library: 'jseeder',
 		libraryTarget: 'umd'
 	},
-	devtool: 'cheap-module-eval-source-map',
+	devtool: 'source-map',
 	devServer: {
 		contentBase: path.join(__dirname),
 		compress: true,
@@ -22,7 +23,7 @@ module.exports = {
 		overlay: {warnings: false, errors: true},
 		quiet: true // necessary for FriendlyErrorsPlugin
 	},
-	
+
 	module: {
 		rules: [
 			{
@@ -41,10 +42,10 @@ module.exports = {
 			},
 			onErrors: (severity, errors) => {
 				if (severity !== 'error') return;
-				
+
 				const error = errors[0];
 				const filename = error.file && error.file.split('!').pop();
-				
+
 				nodeNotifier.notify({
 					title: 'javascript-data-seeder',
 					message: severity + ': ' + error.name,
