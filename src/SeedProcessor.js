@@ -1,30 +1,42 @@
 import AbstractSeed from './AbstractSeed';
 import objectMap from './utils/objectMap';
 
-export default class SeedsProcessor {
-	constructor(count, structure) {
-		this.count = count;
-		this.structure = structure;
-		this.parentProcessor = null;
-		this.cachedSeedsValues = {};
+export default class SeedProcessor {
+	constructor(structure = {}) {
+		this._structure = structure;
+		this._arrayForFill = [];
+		this._parentProcessor = null;
+		this._cachedSeedsValues = {};
 	}
 	
-	process(parentProcessor) {
-		this._setParentProcessor(parentProcessor);
-		return new Array(this.count).fill('').map(() => {
+	setStructure(value = {}) {
+		this._structure = value;
+	}
+	
+	setArrayForFill(value = []) {
+		this._arrayForFill = value;
+	}
+	
+	createArrayForFill(count) {
+		this._arrayForFill = new Array(count).fill({});
+	}
+	
+	setParentProcessor(parentProcessor) {
+		this._parentProcessor = parentProcessor;
+	}
+	
+	process() {
+		return this._arrayForFill.map(preparedItem => {
 			this._clearSeedCache();
-			return this._processItem(this.structure);
+			return this._processItem(this._structure, preparedItem);
 		});
 	}
 	
-	_setParentProcessor(parentProcessor) {
-		if (parentProcessor instanceof this.constructor) {
-			this.parentProcessor = parentProcessor;
-		}
-	}
-	
-	_processItem(structure) {
-		return objectMap(structure, propertyValue => this._processProperty(propertyValue));
+	_processItem(structure, preparedItem) {
+		return {
+			...preparedItem,
+			...objectMap(structure, propertyValue => this._processProperty(propertyValue))
+		};
 	}
 	
 	_processProperty(value) {
@@ -33,7 +45,8 @@ export default class SeedsProcessor {
 		if (value instanceof AbstractSeed) {
 			processedValue = this._processSeed(value);
 		} else if (value instanceof this.constructor) {
-			processedValue = value.process(this);
+			value.setParentProcessor(this);
+			processedValue = value.process();
 		} else if (typeof value === 'object') {
 			processedValue = this._processItem(value);
 		} else {
@@ -48,31 +61,33 @@ export default class SeedsProcessor {
 	}
 	
 	_processSeedWithId(seed) {
-		if (!this._checkCachedSeedValue(seed.id)) {
-			this._setCachedSeedValue(seed.id, seed.generateValue());
+		const seedId = seed.getId();
+		
+		if (!this._checkCachedSeedValue(seedId)) {
+			this._setCachedSeedValue(seedId, seed.generateValue());
 		}
 		
-		return this._getCachedSeedValue(seed.id);
+		return this._getCachedSeedValue(seedId);
 	}
 	
 	_checkCachedSeedValue(seedId) {
-		return this.cachedSeedsValues.hasOwnProperty(seedId) ||
-			(this.parentProcessor !== null && this.parentProcessor._getCachedSeedValue(seedId));
+		return this._cachedSeedsValues.hasOwnProperty(seedId) ||
+			(this._parentProcessor !== null && this._parentProcessor._getCachedSeedValue(seedId));
 	}
 	
 	_getCachedSeedValue(seedId) {
-		return this.cachedSeedsValues.hasOwnProperty(seedId)
-			? this.cachedSeedsValues[seedId]
-			: this.parentProcessor !== null
-				? this.parentProcessor._getCachedSeedValue(seedId)
+		return this._cachedSeedsValues.hasOwnProperty(seedId)
+			? this._cachedSeedsValues[seedId]
+			: this._parentProcessor !== null
+				? this._parentProcessor._getCachedSeedValue(seedId)
 				: undefined;
 	}
 	
 	_setCachedSeedValue(seedId, value) {
-		this.cachedSeedsValues[seedId] = value;
+		this._cachedSeedsValues[seedId] = value;
 	}
 	
 	_clearSeedCache() {
-		this.cachedSeedsValues = {};
+		this._cachedSeedsValues = {};
 	}
 }

@@ -3,15 +3,19 @@ import AbstractSeed from '../AbstractSeed';
 export default class RangeSeed extends AbstractSeed {
 	constructor(params) {
 		super(params);
-		this.range = params.range || [];
+		this._range = params.range || [];
 	}
 	
-	setRange(range = []) {
-		this.range = range;
+	setRange(value = []) {
+		this._range = value;
 		return this;
 	}
 	
 	generateValue() {
-		return 'range-' + this.range[Math.floor(Math.random() * this.range.length)];
+		return this._range.length ? this._range[this._getRandomRangeIndex(this._range)] : '';
+	}
+	
+	_getRandomRangeIndex(range) {
+		return Math.floor(Math.random() * range.length);
 	}
 }
