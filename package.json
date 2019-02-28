@@ -2,7 +2,7 @@
   "name": "javascript-data-seeder",
   "version": "0.2.0",
   "description": "A tool for creating generated data arrays",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev-server": "webpack-dev-server --inline --progress",
     "build": "webpack --target node --mode development",
