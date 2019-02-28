@@ -12,7 +12,7 @@ Simple example:
 ```js
 let data = Seeder.make({
 	uuid: Seeder.types.string()
-}).seed(10);
+}).seed(2);
 
 data === [
     {uuid: 'random_string1'},	
@@ -21,7 +21,7 @@ data === [
 ``` 
 
 Mixing with the native object:
-```
+```js
 let data = Seeder.make({
 	uuid: Seeder.types.uuid(),
 	comment: 'bla bla',
@@ -32,7 +32,7 @@ let data = Seeder.make({
 ```
 
 Filling an existing array:
-```
+```js
 let data = Seeder.make({
 	uuid: Seeder.types.uuid()
 }).seedToArray([
@@ -47,7 +47,7 @@ data === [
 ```
 
 Using nested Seeder:
-```
+```js
 let data = Seeder.make({
 	uuid: Seeder.types.uuid(),
 	subData: Seeder.makeSubSeeder({
@@ -57,7 +57,7 @@ let data = Seeder.make({
 ```
 
 Linking values ​​through an identifier:
-```
+```js
 let data = Seeder.make({
 	uuid: Seeder.types.uuid({id: 'my_id'}),
 	subData: Seeder.makeSubSeeder({
