@@ -1,4 +1,4 @@
-import AbstractSeed from '../AbstractSeed';
+import AbstractSeed from '../core/AbstractSeed';
 
 export default class StringSeed extends AbstractSeed {
 	constructor(params) {

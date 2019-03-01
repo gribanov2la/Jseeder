@@ -1,5 +1,5 @@
 import AbstractSeed from './AbstractSeed';
-import objectMap from './utils/objectMap';
+import objectMap from '../utils/objectMap';
 
 export default class SeedProcessor {
 	constructor(structure = {}) {

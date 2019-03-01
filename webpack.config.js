@@ -3,7 +3,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const nodeNotifier = require('node-notifier');
 
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/Seeder.js',
 	mode: 'development',
 	output: {
 		filename: './jseeder.js',

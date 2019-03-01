@@ -91,68 +91,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/Seeder.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./src/AbstractSeed.js":
-/*!*****************************!*\
-  !*** ./src/AbstractSeed.js ***!
-  \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AbstractSeed; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var AbstractSeed =
-/*#__PURE__*/
-function () {
-  function AbstractSeed() {
-    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        id = _ref.id;
-
-    _classCallCheck(this, AbstractSeed);
-
-    this._id = id;
-  }
-
-  _createClass(AbstractSeed, [{
-    key: "setId",
-    value: function setId(value) {
-      this._id = value;
-      return this;
-    }
-  }, {
-    key: "getId",
-    value: function getId() {
-      return this._id;
-    }
-  }, {
-    key: "hasId",
-    value: function hasId() {
-      return typeof this._id !== 'undefined';
-    }
-  }, {
-    key: "generateValue",
-    value: function generateValue() {
-      return '';
-    }
-  }]);
-
-  return AbstractSeed;
-}();
-
-
-
-/***/ }),
 
 /***/ "./src/SeedFabric.js":
 /*!***************************!*\
@@ -211,18 +153,152 @@ function () {
 
 /***/ }),
 
-/***/ "./src/SeedProcessor.js":
-/*!******************************!*\
-  !*** ./src/SeedProcessor.js ***!
-  \******************************/
+/***/ "./src/Seeder.js":
+/*!***********************!*\
+  !*** ./src/Seeder.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Seeder; });
+/* harmony import */ var _SeedFabric__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SeedFabric */ "./src/SeedFabric.js");
+/* harmony import */ var _core_SeedProcessor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/SeedProcessor */ "./src/core/SeedProcessor.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+var Seeder =
+/*#__PURE__*/
+function () {
+  /**
+   * @param {SeedProcessor} seedProcessor
+   */
+  function Seeder(seedProcessor) {
+    _classCallCheck(this, Seeder);
+
+    this._seedProcessor = seedProcessor;
+  }
+
+  _createClass(Seeder, [{
+    key: "fillByCount",
+    value: function fillByCount(count) {
+      this._seedProcessor.createArrayForFill(count);
+
+      return this;
+    }
+  }, {
+    key: "fillArray",
+    value: function fillArray(array) {
+      this._seedProcessor.setArrayForFill(array);
+
+      return this;
+    }
+  }, {
+    key: "process",
+    value: function process() {
+      return this._seedProcessor.process();
+    }
+  }, {
+    key: "getChild",
+    value: function getChild() {
+      return this._seedProcessor;
+    }
+  }], [{
+    key: "make",
+    value: function make(structure) {
+      return new this(new _core_SeedProcessor__WEBPACK_IMPORTED_MODULE_1__["default"](structure));
+    }
+  }, {
+    key: "types",
+    get: function get() {
+      return _SeedFabric__WEBPACK_IMPORTED_MODULE_0__["default"];
+    }
+  }]);
+
+  return Seeder;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/core/AbstractSeed.js":
+/*!**********************************!*\
+  !*** ./src/core/AbstractSeed.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AbstractSeed; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AbstractSeed =
+/*#__PURE__*/
+function () {
+  function AbstractSeed() {
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        id = _ref.id;
+
+    _classCallCheck(this, AbstractSeed);
+
+    this._id = id;
+  }
+
+  _createClass(AbstractSeed, [{
+    key: "setId",
+    value: function setId(value) {
+      this._id = value;
+      return this;
+    }
+  }, {
+    key: "getId",
+    value: function getId() {
+      return this._id;
+    }
+  }, {
+    key: "hasId",
+    value: function hasId() {
+      return typeof this._id !== 'undefined';
+    }
+  }, {
+    key: "generateValue",
+    value: function generateValue() {
+      return '';
+    }
+  }]);
+
+  return AbstractSeed;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/core/SeedProcessor.js":
+/*!***********************************!*\
+  !*** ./src/core/SeedProcessor.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SeedProcessor; });
-/* harmony import */ var _AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AbstractSeed */ "./src/AbstractSeed.js");
-/* harmony import */ var _utils_objectMap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/objectMap */ "./src/utils/objectMap.js");
+/* harmony import */ var _AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AbstractSeed */ "./src/core/AbstractSeed.js");
+/* harmony import */ var _utils_objectMap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/objectMap */ "./src/utils/objectMap.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -357,113 +433,6 @@ function () {
 
 /***/ }),
 
-/***/ "./src/Seeder.js":
-/*!***********************!*\
-  !*** ./src/Seeder.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Seeder; });
-/* harmony import */ var _SeedFabric__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SeedFabric */ "./src/SeedFabric.js");
-/* harmony import */ var _SeedProcessor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SeedProcessor */ "./src/SeedProcessor.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-
-var Seeder =
-/*#__PURE__*/
-function () {
-  /**
-   * @param {SeedProcessor} seedProcessor
-   * @param {Boolean} isSubSeed
-   */
-  function Seeder(seedProcessor) {
-    var isSubSeed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-    _classCallCheck(this, Seeder);
-
-    this._seedProcessor = seedProcessor;
-    this._isSubSeed = isSubSeed;
-  }
-
-  _createClass(Seeder, [{
-    key: "seed",
-    value: function seed(count) {
-      this._seedProcessor.createArrayForFill(count);
-
-      return this._process();
-    }
-  }, {
-    key: "seedToArray",
-    value: function seedToArray(array) {
-      this._seedProcessor.setArrayForFill(array);
-
-      return this._process();
-    }
-  }, {
-    key: "setStructure",
-    value: function setStructure() {
-      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      this._seedProcessor.setStructure(value);
-    }
-    /**
-     * @return {SeedProcessor}
-     * @private
-     */
-
-  }, {
-    key: "_process",
-    value: function _process() {
-      return this._isSubSeed ? this._seedProcessor : this._seedProcessor.process();
-    }
-  }], [{
-    key: "make",
-    value: function make(structure) {
-      return new this(new _SeedProcessor__WEBPACK_IMPORTED_MODULE_1__["default"](structure));
-    }
-  }, {
-    key: "makeSubSeeder",
-    value: function makeSubSeeder(structure) {
-      return new this(new _SeedProcessor__WEBPACK_IMPORTED_MODULE_1__["default"](structure), true);
-    }
-  }, {
-    key: "types",
-    get: function get() {
-      return _SeedFabric__WEBPACK_IMPORTED_MODULE_0__["default"];
-    }
-  }]);
-
-  return Seeder;
-}();
-
-
-
-/***/ }),
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Seeder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Seeder */ "./src/Seeder.js");
-
-/* harmony default export */ __webpack_exports__["default"] = (_Seeder__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
 /***/ "./src/seedTypes/RangeSeed.js":
 /*!************************************!*\
   !*** ./src/seedTypes/RangeSeed.js ***!
@@ -474,7 +443,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RangeSeed; });
-/* harmony import */ var _AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../AbstractSeed */ "./src/AbstractSeed.js");
+/* harmony import */ var _core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/AbstractSeed */ "./src/core/AbstractSeed.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -530,7 +499,7 @@ function (_AbstractSeed) {
   }]);
 
   return RangeSeed;
-}(_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}(_core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
@@ -546,7 +515,7 @@ function (_AbstractSeed) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return StringSeed; });
-/* harmony import */ var _AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../AbstractSeed */ "./src/AbstractSeed.js");
+/* harmony import */ var _core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/AbstractSeed */ "./src/core/AbstractSeed.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -609,7 +578,7 @@ function (_AbstractSeed) {
   }]);
 
   return StringSeed;
-}(_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}(_core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
@@ -625,7 +594,7 @@ function (_AbstractSeed) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UuidSeed; });
-/* harmony import */ var _AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../AbstractSeed */ "./src/AbstractSeed.js");
+/* harmony import */ var _core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/AbstractSeed */ "./src/core/AbstractSeed.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -667,7 +636,7 @@ function (_AbstractSeed) {
   }]);
 
   return UuidSeed;
-}(_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}(_core_AbstractSeed__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 

@@ -1,47 +1,37 @@
 import SeedFabric from './SeedFabric';
-import SeedProcessor from './SeedProcessor';
+import SeedProcessor from './core/SeedProcessor';
 
 export default class Seeder {
 	/**
 	 * @param {SeedProcessor} seedProcessor
-	 * @param {Boolean} isSubSeed
 	 */
-	constructor(seedProcessor, isSubSeed = false) {
+	constructor(seedProcessor) {
 		this._seedProcessor = seedProcessor;
-		this._isSubSeed = isSubSeed;
 	}
 	
 	static make(structure) {
 		return new this(new SeedProcessor(structure));
 	}
 	
-	static makeSubSeeder(structure) {
-		return new this(new SeedProcessor(structure), true);
-	}
-	
 	static get types() {
 		return SeedFabric;
 	}
 	
-	seed(count) {
+	fillByCount(count) {
 		this._seedProcessor.createArrayForFill(count);
-		return this._process();
+		return this;
 	}
 	
-	seedToArray(array) {
+	fillArray(array) {
 		this._seedProcessor.setArrayForFill(array);
-		return this._process();
+		return this;
 	}
 	
-	setStructure(value = {}) {
-		this._seedProcessor.setStructure(value);
+	process() {
+		return this._seedProcessor.process();
 	}
 	
-	/**
-	 * @return {SeedProcessor}
-	 * @private
-	 */
-	_process() {
-		return this._isSubSeed ? this._seedProcessor : this._seedProcessor.process();
+	getChild () {
+		return this._seedProcessor
 	}
 }
