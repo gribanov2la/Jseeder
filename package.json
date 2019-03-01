@@ -6,7 +6,8 @@
   "scripts": {
     "dev-server": "webpack-dev-server --inline --progress",
     "build": "webpack --target node --mode development",
-    "test": "npm run build && mocha --recursive ./test/**/*.js"
+    "test": "npm run build && mocha --recursive ./test/**/*.js",
+    "rollup-build": "rollup -c -w"
   },
   "files": [
     "dist"
@@ -19,6 +20,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "babel-preset-es2015-rollup": "^3.0.0",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "css-loader": "^2.1.0",
@@ -26,17 +28,18 @@
     "mocha": "^6.0.2",
     "mocha-webpack": "^1.1.0",
     "node-notifier": "^5.4.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-serve": "^1.0.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
   },
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ]
+  "dependencies": {
+    "rollup": "^1.4.0"
   },
-  "dependencies": {},
   "engines": {
     "node": ">=8.11.4"
   }
