@@ -6,7 +6,6 @@ export default class Pnrg {
     }
 
     random() {
-        // console.log('seed', this._seed)
         return Math.abs(Math.sin(++this._seed * (this._seed + 0xFF))); // very stupid algorithm
     }
 
