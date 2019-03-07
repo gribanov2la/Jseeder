@@ -13,22 +13,22 @@ export default class Jseeder {
 	static get types() {
 		return generatorFabric;
 	}
-	
-	static collection(structure) {
+
+	static collection(structure: any) {
 		structure = structure instanceof Structure ? structure : Jseeder.structure(structure);
-		
+
 		return new Collection(structure);
 	}
-	
+
 	static structure(object = {}) {
 		return new Structure(object);
 	}
-	
+
 	static locale(locale) {
 		i18n.setLocale(locale);
 		return this;
 	}
-	
+
 	static seed(seed) {
 		pnrg.setSeed(seed);
 		return this;

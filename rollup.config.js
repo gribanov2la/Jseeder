@@ -1,9 +1,9 @@
-import babel from 'rollup-plugin-babel';
+import typescript from 'rollup-plugin-typescript2';
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 
 module.exports = {
-	input: './src/index.js',
+	input: './src/index.ts',
 	output: [
 		{
 			file: 'dist/jseeder-b1.js',
@@ -30,8 +30,14 @@ module.exports = {
 		livereload({
 			watch: 'dist'
 		}),
-		babel({
-			exclude: './node_modules/**'
-		})
+		// typescript({
+		// 	lib: ["es5", "es6", "dom"],
+		// 	target: "es5",
+		// 	include: './src'
+		// })
+		typescript({tsconfig: "tsconfig.json"})
+		// babel({
+		// 	exclude: './node_modules/**'
+		// })
 	]
 };
