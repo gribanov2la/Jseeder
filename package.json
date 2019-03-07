@@ -4,10 +4,8 @@
   "description": "A tool for creating generated data arrays",
   "main": "dist/jseeder.js",
   "scripts": {
-    "dev-server": "webpack-dev-server --inline --progress",
-    "build": "webpack --target node --mode development",
-    "test": "npm run build && mocha --recursive ./test/**/*.js",
-    "rollup-build": "rollup -c -w"
+    "dev-server": "rollup -c -w",
+    "test": "npm run build && mocha --recursive ./test/**/*.js"
   },
   "files": [
     "dist"

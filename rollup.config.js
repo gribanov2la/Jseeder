@@ -3,12 +3,13 @@ import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 
 module.exports = {
-	input: 'src/Seeder.js',
+	input: './src/index.js',
 	output: [
 		{
 			file: 'dist/jseeder-b1.js',
 			sourcemap: true,
-			format: 'cjs'
+			name: 'Jseeder',
+			format: 'umd'
 		},
 		{
 			file: 'dist/jseeder-b2.js',
@@ -30,7 +31,7 @@ module.exports = {
 			watch: 'dist'
 		}),
 		babel({
-			exclude: './node_modules/**', // only transpile our source code,
+			exclude: './node_modules/**'
 		})
 	]
 };
