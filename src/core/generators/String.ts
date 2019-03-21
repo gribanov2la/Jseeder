@@ -1,38 +1,40 @@
-import AbstractGenerator from '../AbstractGenerator';
+import Generator from './Generator';
+import I18n from '../I18n';
+import Pnrg from '../Pnrg';
+import {IStringGeneratorParams} from '../interfaces/generator';
 
-export default class StringGenerator extends AbstractGenerator {
-    _size;
-    _customCharset;
+export default class StringGenerator extends Generator {
+    protected size: number;
+    protected customCharset: string;
 
-    constructor(i18n, pnrg, {size = 8, customCharset = ''}) {
+    constructor(i18n: I18n, pnrg: Pnrg, {size = 8, customCharset}: IStringGeneratorParams) {
         super(i18n, pnrg);
-        this._size = size;
-        this._customCharset = customCharset;
+        this.size = size;
+        this.customCharset = customCharset;
     }
 
+    public generate(): string {
+        const charset: string = this.getCharset();
+        let value: string = '';
 
-    generate() {
-        const charset = this._getCharset();
-        let value = '';
-
-        for (let i = 0; i < this._size; i++) {
-            value += this._getRandomFromArray(charset.split(''));
+        for (let i = 0; i < this.size; i++) {
+            value += this.getRandomFromArray(charset.split(''));
         }
 
         return value;
     }
 
-    size(size) {
-        this._size = size;
+    public setSize(size: number): this {
+        this.size = size;
         return this;
     }
 
-    customCharset(charset) {
-        this._customCharset = charset;
+    public setCustomCharset(charset: string): this {
+        this.customCharset = charset;
         return this;
     }
 
-    _getCharset() {
-        return this._customCharset || (this._dictionary.alphabet + '0123456789');
+    protected getCharset(): string {
+        return this.customCharset || (this.getDictionary().alphabet + this.decNumberCharset);
     }
 }

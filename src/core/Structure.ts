@@ -1,35 +1,39 @@
 import Collection from './Collection';
-import AbstractGenerator from './AbstractGenerator';
+import Generator from './generators/Generator';
 import objectMap from './utils/objectMap';
 
 export default class Structure {
-    _object;
+    protected object: object;
 
-    constructor(object = {}) {
-        this._object = object;
+    constructor(object: object = {}) {
+        this.object = object;
     }
 
-    object(value) {
-        this._object = value;
+    public setObject(value): this {
+        this.object = value;
         return this;
     }
 
-    process(sourceObject = {}) {
+    public process(sourceObject: object = {}): object {
         return {
             ...sourceObject,
-            ...objectMap(this._object, (value, key) => this._processProperty(value, key, sourceObject))
+            ...this.processObject(this.object)
         };
     }
 
-    _processProperty(value, key, sourceObject) {
+    protected processObject(object: object): object {
+        return objectMap(object, value => this.processProperty(value));
+    }
+
+    protected processProperty(value: any): any {
         let processedValue;
 
-        if (value instanceof AbstractGenerator) {
+        if (value instanceof Generator) {
             processedValue = value.generate();
         } else if (value instanceof Collection) { // recursion to child collection
             processedValue = value.process();
-        } else if (typeof value === 'object' && value.constructor === Object) { // only plain objects
-            processedValue = this.process(sourceObject[key]);
+        } else if (value instanceof Object) {
+            processedValue = this.process(value);
         } else { // plain value
             processedValue = value;
         }

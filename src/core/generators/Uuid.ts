@@ -1,15 +1,11 @@
-import AbstractGenerator from '../AbstractGenerator';
+import Generator from './Generator';
 
-export default class StringGenerator extends AbstractGenerator {
-	get _uuidMask() {
-		return '########-####-####-####-###########';
-	};
+export default class StringGenerator extends Generator {
+    protected readonly mask: string = '########-####-####-####-###########';
 
-	constructor(i18n, pnrg, params) {
-		super(i18n, pnrg, params);
-	}
-
-	generate() {
-		return this._mapMask(this._uuidMask)(() => this._getRandomFromArray(this._hexCharset.split('')).toLowerCase());
-	}
+    public generate(): string {
+        return this.makeMaskMapper(this.mask)(
+            () => this.getRandomFromArray(this.hexNumberCharset.split('')).toLowerCase()
+        );
+    }
 }

@@ -1,16 +1,16 @@
 export default class Pnrg {
-    _seed;
+    protected seed: number;
 
     constructor() {
-        this._seed = Math.floor((Math.random() * 0xF4240) + 1);
+        this.seed = Math.floor((Math.random() * 0xF4240) + 1);
     }
 
-    random() {
-        return Math.abs(Math.sin(++this._seed * (this._seed + 0xFF))); // very stupid algorithm
+    public random(): number {
+        return Math.abs(Math.sin(++this.seed * (this.seed + 0xFF))); // very stupid algorithm
     }
 
-    setSeed(seed) {
-        this._seed = seed;
+    public setSeed(seed: number): this {
+        this.seed = seed;
         return this;
     }
 }

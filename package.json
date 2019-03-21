@@ -1,30 +1,41 @@
 {
   "name": "jseeder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A tool for creating generated data arrays",
-  "main": "dist/jseeder.js",
+  "main": "dist/jseeder.common.js",
+  "module": "dist/jseeder.esm.js",
+  "unpkg": "dist/jseeder.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
-    "dev-server": "rollup -c -w",
+    "dev-server": "rollup -c build/dev.server.config.js -w",
+    "build": "npm run build:dev && npm run build:prod",
+    "build:dev": "rollup -c build/build.dev.config.js",
+    "build:prod": "rollup -c build/build.prod.config.js",
+    "tslint": "tslint './src/**/*.{ts,tsx}'",
     "test": "npm run build && mocha --recursive ./test/**/*.js"
   },
-  "files": [
-    "dist"
-  ],
-  "unpkg": "dist/jseeder.js",
-  "author": "Denis Gribanov <2517.2la@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gribanov2la/Jseeder.git"
+  },
+  "author": "Gribanov Denis",
   "license": "MIT",
   "devDependencies": {
+    "pre-push": "^0.1.1",
+    "rollup": "^1.7.0",
     "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-typescript": "^1.0.0",
+    "rollup-plugin-tslint": "^0.2.2",
     "rollup-plugin-typescript2": "^0.19.3",
-    "tslib": "^1.9.3",
+    "rollup-plugin-uglify": "^6.0.2",
+    "tslint": "^5.14.0",
     "typescript": "^3.3.3333"
   },
-  "dependencies": {
-    "rollup": "^1.4.0"
-  },
+  "prepush": "tslint",
   "engines": {
     "node": ">=8.11.4"
   }

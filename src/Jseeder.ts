@@ -1,8 +1,8 @@
-import I18n from './core/I18n';
-import GeneratorFabric from './core/GeneratorFabric';
-import Structure from './core/Structure';
 import Collection from './core/Collection';
+import GeneratorFabric from './core/GeneratorFabric';
+import I18n from './core/I18n';
 import Pnrg from './core/Pnrg';
+import Structure from './core/Structure';
 import dictionaries from './dictionaries/index';
 
 const globalI18n = new I18n('en', dictionaries);
@@ -10,69 +10,65 @@ const globalPnrg = new Pnrg();
 const globalGeneratorFabric = new GeneratorFabric(globalI18n, globalPnrg);
 
 export default class Jseeder {
-    _i18n;
-    _pnrg;
-    _generatorFabric;
-
-    static get types() {
+    public static types(): GeneratorFabric {
         return globalGeneratorFabric;
     }
 
-    static collection(structure: any) {
+    public static collection(structure: Structure | object): Collection {
         structure = structure instanceof Structure ? structure : Jseeder.structure(structure);
-
         return new Collection(structure);
     }
 
-    static structure(object = {}) {
+    public static structure(object: object): Structure {
         return new Structure(object);
     }
 
-    static locale(locale) {
+    public static locale(locale: string): typeof Jseeder {
         globalI18n.setLocale(locale);
-        return this;
+        return Jseeder;
     }
 
-    static seed(seed) {
+    public static seed(seed: number): typeof Jseeder {
         globalPnrg.setSeed(seed);
-        return this;
+        return Jseeder;
     }
 
-    constructor(i18n, pnrg, generatorFabric) {
-        this._i18n = i18n;
-        this._pnrg = pnrg;
-        this._generatorFabric = generatorFabric;
+    protected i18n: I18n;
+    protected pnrg: Pnrg;
+    protected generatorFabric: GeneratorFabric;
+
+    constructor(i18n: I18n, pnrg: Pnrg, generatorFabric: GeneratorFabric) {
+        this.i18n = i18n;
+        this.pnrg = pnrg;
+        this.generatorFabric = generatorFabric;
     }
 
-    get types() {
-        return this._generatorFabric;
+    public types(): GeneratorFabric {
+        return this.generatorFabric;
     }
 
-    instance(lang = 'en', localDictionaries = dictionaries) {
-        const i18n = new I18n(lang, localDictionaries);
+    public instance(lang = 'en'): Jseeder {
+        const i18n = new I18n(lang, dictionaries);
         const pnrg = new Pnrg();
         const generatorFabric = new GeneratorFabric(i18n, globalPnrg);
-
-        return new Jseeder(i18n, pnrg, generatorFabric)
+        return new Jseeder(i18n, pnrg, generatorFabric);
     }
 
-    collection(structure: any) {
-        structure = structure instanceof Structure ? structure : this.structure(structure);
-
-        return new Collection(structure);
+    public collection(structure: Structure): Collection {
+        return Jseeder.collection(structure);
     }
 
-    structure(object = {}) {
-        return new Structure(object);
+    public structure(object: object): Structure {
+        return Jseeder.structure(object);
     }
 
-    locale(locale) {
-        this._i18n.setLocale(locale);
+    public locale(locale: string): this {
+        this.i18n.setLocale(locale);
         return this;
     }
 
-    seed(seed) {
-        this._pnrg.setSeed(seed);
+    public seed(seed: number): this {
+        this.pnrg.setSeed(seed);
         return this;
     }
 }

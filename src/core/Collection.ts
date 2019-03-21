@@ -1,50 +1,48 @@
 export default class Collection {
-    _structure;
-    _sourceArray;
-    _size;
+    protected structure;
+    protected sourceArray: any[];
+    protected size: number;
 
     constructor(structure) {
-        this._structure = structure;
-        this._sourceArray = null;
-        this._size = null;
+        this.structure = structure;
     }
 
-    structure(structure) {
-        this._structure = structure;
+    public setStructure(structure): this {
+        this.structure = structure;
         return this;
     }
 
-    size(value) {
-        this._size = value;
+    public setSize(value: number): this {
+        this.size = value;
         return this;
     }
 
-    sourceArray(array) {
-        this._sourceArray = array;
+    public setSourceArray(array: any[]): this {
+        this.sourceArray = array;
         return this;
     }
 
-    process() {
-        return this._getArrayForFill().map(element => {
-            return this._structure.process(element);
+    public process(): any[] {
+        return this.getArrayForFill().map(sourceObject => {
+            return this.structure.process(sourceObject);
         });
     }
 
-    _getArrayForFill() {
-        let sourceArray;
+    protected getArrayForFill(): any[] {
+        let sourceArray: any[];
 
-        if (this._sourceArray !== null && this._size !== null) {
-            sourceArray = this._normalizeSourceArrayByCount(this._sourceArray, this._size);
-        } else if (this._sourceArray !== null) {
-            sourceArray = [...this._sourceArray];
+        if (this.sourceArray != null && this.size != null) {
+            sourceArray = this.normalizeSourceArrayByCount(this.sourceArray, this.size);
+        } else if (this.sourceArray != null) {
+            sourceArray = [...this.sourceArray];
         } else {
-            sourceArray = new Array(this._size || 0).fill({});
+            sourceArray = (new Array(this.size || 0)).fill({});
         }
 
         return sourceArray;
     }
 
-    _normalizeSourceArrayByCount(array, count) {
+    protected normalizeSourceArrayByCount(array: any[], count: number): any[] {
         return count > array.length ?
             [...array, new Array(count - array.length).fill({})]
             : array.filter((item, index) => index < count);

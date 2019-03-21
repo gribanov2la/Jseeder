@@ -1,24 +1,25 @@
+import {IDictionary, IDictionaryHash} from './interfaces/index';
+
 export default class I18n {
-    _locale;
-    _dictionaries;
+    protected locale: string;
+    protected dictionaries: IDictionaryHash;
 
-    constructor(locale, dictionaries) {
-        this._locale = locale;
-        this._dictionaries = dictionaries;
+    constructor(locale, dictionaries: IDictionaryHash) {
+        this.locale = locale;
+        this.dictionaries = dictionaries;
     }
 
-    get activeDictionary() {
-        return this._dictionaries[this._locale];
+    public getActiveDictionary(): IDictionary {
+        return this.dictionaries[this.locale];
     }
 
-    setLocale(locale) {
-        this._locale = locale;
+    public setLocale(locale: string) {
+        this.locale = locale;
         return this;
     }
 
-    setDictionaries(dictionaries) {
-        this._dictionaries = dictionaries;
+    public setDictionaries(dictionaries: IDictionaryHash) {
+        this.dictionaries = dictionaries;
         return this;
     }
 }
-
