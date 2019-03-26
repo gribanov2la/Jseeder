@@ -1,14 +1,20 @@
+import Structure from './Structure';
+
 export default class Collection {
-    protected structure;
+    public static make(object: object) {
+        return new this(object);
+    }
+
+    protected structure: object;
     protected sourceArray: any[];
     protected size: number;
 
-    constructor(structure) {
-        this.structure = structure;
+    constructor(object: object) {
+        this.structure = new Structure(object);
     }
 
-    public setStructure(structure): this {
-        this.structure = structure;
+    public setObject(object: object): this {
+        this.structure = object;
         return this;
     }
 
@@ -24,7 +30,7 @@ export default class Collection {
 
     public process(): any[] {
         return this.getArrayForFill().map(sourceObject => {
-            return this.structure.process(sourceObject);
+            return new Structure(this.structure).process(sourceObject);
         });
     }
 

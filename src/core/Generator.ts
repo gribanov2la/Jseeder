@@ -1,7 +1,7 @@
-import {IDictionary} from '../interfaces/index';
-import {TypeMaskMapper} from '../types/index';
-import Pnrg from '../Pnrg';
-import I18n from '../I18n';
+import {IDictionary} from './interfaces/index';
+import {I18n, i18n} from './services/i18n';
+import {Pnrg, pnrg} from './services/pnrg';
+import {MaskMapperType} from './types/index';
 
 export default abstract class Generator {
     protected readonly hexNumberCharset: string = '0123456789ABCDEF';
@@ -10,12 +10,16 @@ export default abstract class Generator {
     protected i18n: I18n;
     protected pnrg: Pnrg;
 
-    constructor(i18n: I18n, pnrg: Pnrg) {
+    constructor() {
         this.i18n = i18n;
         this.pnrg = pnrg;
     }
 
     public abstract generate(): any;
+
+    public get() {
+        return this.generate();
+    }
 
     protected getDictionary(): IDictionary {
         return this.i18n.getActiveDictionary();
@@ -25,7 +29,7 @@ export default abstract class Generator {
         return this.pnrg.random();
     }
 
-    protected makeMaskMapper(mask: string, replaceableChar: string = '#'): TypeMaskMapper {
+    protected makeMaskMapper(mask: string, replaceableChar: string = '#'): MaskMapperType {
         return callback => mask.split('')
             .map(character => character === replaceableChar ? callback(character) : character)
             .join('');

@@ -40,6 +40,8 @@ Jseeder.collection({
 
 Коллекции можно вкладывать в другие коллекции:
 ```javascript
+Jseeder.types().uuid().generate()
+
 Jseeder.collection({
     uuid: Jseeder.types().uuid(),
     my_children: Jseeder.collection({

@@ -1,10 +1,10 @@
-import {IDictionary, IDictionaryHash} from './interfaces/index';
+import {IDictionary, IDictionaryHash} from '../interfaces/index';
 
-export default class I18n {
+export class I18n {
     protected locale: string;
     protected dictionaries: IDictionaryHash;
 
-    constructor(locale, dictionaries: IDictionaryHash) {
+    constructor(locale?: string, dictionaries?: IDictionaryHash) {
         this.locale = locale;
         this.dictionaries = dictionaries;
     }
@@ -23,3 +23,5 @@ export default class I18n {
         return this;
     }
 }
+
+export const i18n = new I18n();

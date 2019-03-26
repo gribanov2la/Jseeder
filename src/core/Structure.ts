@@ -1,5 +1,5 @@
-import Collection from './Collection';
-import Generator from './generators/Generator';
+import Generator from './Generator';
+import {instanceOfICollection} from './interfaces/collection';
 import objectMap from './utils/objectMap';
 
 export default class Structure {
@@ -30,7 +30,7 @@ export default class Structure {
 
         if (value instanceof Generator) {
             processedValue = value.generate();
-        } else if (value instanceof Collection) { // recursion to child collection
+        } else if (instanceOfICollection(value)) { // recursion to child collection
             processedValue = value.process();
         } else if (value instanceof Object) {
             processedValue = this.process(value);

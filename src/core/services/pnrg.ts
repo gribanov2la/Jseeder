@@ -1,4 +1,4 @@
-export default class Pnrg {
+export class Pnrg {
     protected seed: number;
 
     constructor() {
@@ -14,3 +14,5 @@ export default class Pnrg {
         return this;
     }
 }
+
+export const pnrg = new Pnrg();

@@ -1,14 +1,20 @@
-import Generator from './Generator';
-import I18n from '../I18n';
-import Pnrg from '../Pnrg';
-import {IStringGeneratorParams} from '../interfaces/generator';
+import Generator from '../core/Generator';
+import {IStringGeneratorParams} from '../core/interfaces/index';
 
 export default class StringGenerator extends Generator {
+    public static make(params?: IStringGeneratorParams) {
+        return new this(params);
+    }
+
+    public static get(params?: IStringGeneratorParams) {
+        return this.make(params).get();
+    }
+
     protected size: number;
     protected customCharset: string;
 
-    constructor(i18n: I18n, pnrg: Pnrg, {size = 8, customCharset}: IStringGeneratorParams) {
-        super(i18n, pnrg);
+    constructor({size = 8, customCharset}: IStringGeneratorParams) {
+        super();
         this.size = size;
         this.customCharset = customCharset;
     }

@@ -1,1 +1,1 @@
-export declare type TypeMaskMapper = (callback: (character: string) => string) => string;
+export declare type MaskMapperType = (callback: (character: string) => string) => string;

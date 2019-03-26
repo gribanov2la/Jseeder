@@ -1,9 +1,10 @@
 export default class Collection {
-    protected structure: any;
+    static make(object: object): Collection;
+    protected structure: object;
     protected sourceArray: any[];
     protected size: number;
-    constructor(structure: any);
-    setStructure(structure: any): this;
+    constructor(object: object);
+    setObject(object: object): this;
     setSize(value: number): this;
     setSourceArray(array: any[]): this;
     process(): any[];
