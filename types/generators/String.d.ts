@@ -1,8 +1,11 @@
 import Generator from '../core/Generator';
-import { IStringGeneratorParams } from '../core/interfaces/index';
-export default class StringGenerator extends Generator {
+export interface IStringGeneratorParams {
+    size?: number;
+    customCharset?: string;
+}
+export declare class StringGenerator extends Generator {
     static make(params?: IStringGeneratorParams): StringGenerator;
-    static get(params?: IStringGeneratorParams): any;
+    static get(params?: IStringGeneratorParams): string;
     protected size: number;
     protected customCharset: string;
     constructor({ size, customCharset }: IStringGeneratorParams);

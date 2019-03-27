@@ -1,6 +1,8 @@
 import Generator from '../core/Generator';
-import { IDatasetGeneratorParams } from '../core/interfaces/index';
-export default class DatasetGenerator extends Generator {
+export interface IDatasetGeneratorParams {
+    data?: any[];
+}
+export declare class DatasetGenerator extends Generator {
     static make(params?: IDatasetGeneratorParams): DatasetGenerator;
     static get(params?: IDatasetGeneratorParams): any;
     protected data: any[];

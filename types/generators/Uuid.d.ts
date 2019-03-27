@@ -1,7 +1,7 @@
 import Generator from '../core/Generator';
-export default class StringGenerator extends Generator {
-    static make(): StringGenerator;
-    static get(): any;
+export declare class UuidGenerator extends Generator {
+    static make(): UuidGenerator;
+    static get(): string;
     protected readonly mask: string;
     generate(): string;
 }

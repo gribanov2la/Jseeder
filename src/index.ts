@@ -1,23 +1,18 @@
 import Collection from './core/Collection';
-import Generator from './core/Generator';
 import {i18n} from './core/services/i18n';
-import {pnrg} from './core/services/pnrg';
+import {pnrg as random} from './core/services/pnrg';
 import Structure from './core/Structure';
-import Dataset from './generators/Dataset';
-import String from './generators/String';
-import Uuid from './generators/Uuid';
+import dictionaries from './dictionaries/index';
+import * as Generators from './public_api/Generators';
+import generators from './public_api/generatorsFunctions';
 
-const Jseeder = {
+i18n.setDictionaries(dictionaries);
+
+export {
     Collection,
-    Generator,
+    Generators,
     Structure,
-    generators: {
-        Dataset,
-        String,
-        Uuid
-    },
+    generators,
     i18n,
-    pnrg
+    random
 };
-
-export default Jseeder;

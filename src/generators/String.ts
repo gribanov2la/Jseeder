@@ -1,12 +1,16 @@
 import Generator from '../core/Generator';
-import {IStringGeneratorParams} from '../core/interfaces/index';
 
-export default class StringGenerator extends Generator {
-    public static make(params?: IStringGeneratorParams) {
+export interface IStringGeneratorParams {
+    size?: number;
+    customCharset?: string;
+}
+
+export class StringGenerator extends Generator {
+    public static make(params?: IStringGeneratorParams): StringGenerator {
         return new this(params);
     }
 
-    public static get(params?: IStringGeneratorParams) {
+    public static get(params?: IStringGeneratorParams): string {
         return this.make(params).get();
     }
 

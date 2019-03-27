@@ -195,6 +195,16 @@ var Collection = /** @class */ (function () {
     return Collection;
 }());
 
+var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+var en = {
+    alphabet: alphabet
+};
+
+var dictionaries = {
+    en: en
+};
+
 var DatasetGenerator = /** @class */ (function (_super) {
     __extends(DatasetGenerator, _super);
     function DatasetGenerator(_a) {
@@ -256,38 +266,41 @@ var StringGenerator = /** @class */ (function (_super) {
     return StringGenerator;
 }(Generator));
 
-var StringGenerator$1 = /** @class */ (function (_super) {
-    __extends(StringGenerator, _super);
-    function StringGenerator() {
+var UuidGenerator = /** @class */ (function (_super) {
+    __extends(UuidGenerator, _super);
+    function UuidGenerator() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.mask = '########-####-####-####-###########';
         return _this;
     }
-    StringGenerator.make = function () {
+    UuidGenerator.make = function () {
         return new this();
     };
-    StringGenerator.get = function () {
+    UuidGenerator.get = function () {
         return this.make().get();
     };
-    StringGenerator.prototype.generate = function () {
+    UuidGenerator.prototype.generate = function () {
         var _this = this;
         return this.makeMaskMapper(this.mask)(function () { return _this.getRandomFromArray(_this.hexNumberCharset.split('')).toLowerCase(); });
     };
-    return StringGenerator;
+    return UuidGenerator;
 }(Generator));
 
-var Jseeder = {
-    Collection: Collection,
-    Generator: Generator,
-    Structure: Structure,
-    generators: {
-        Dataset: DatasetGenerator,
-        String: StringGenerator,
-        Uuid: StringGenerator$1
-    },
-    i18n: i18n,
-    pnrg: pnrg
+
+
+var Generators = /*#__PURE__*/Object.freeze({
+    Dataset: DatasetGenerator,
+    String: StringGenerator,
+    Uuid: UuidGenerator
+});
+
+var generatorsFunctions = {
+    dataset: function (params) { return DatasetGenerator.get(params); },
+    string: function (params) { return StringGenerator.get(params); },
+    uuid: function () { return UuidGenerator.get(); }
 };
 
-export default Jseeder;
+i18n.setDictionaries(dictionaries);
+
+export { Collection, Generators, Structure, generatorsFunctions as generators, i18n, pnrg as random };
 //# sourceMappingURL=jseeder.esm.js.map

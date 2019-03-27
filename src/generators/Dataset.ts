@@ -1,12 +1,15 @@
 import Generator from '../core/Generator';
-import {IDatasetGeneratorParams} from '../core/interfaces/index';
 
-export default class DatasetGenerator extends Generator {
-    public static make(params?: IDatasetGeneratorParams) {
+export interface IDatasetGeneratorParams {
+    data?: any[];
+}
+
+export class DatasetGenerator extends Generator {
+    public static make(params?: IDatasetGeneratorParams): DatasetGenerator {
         return new this(params);
     }
 
-    public static get(params?: IDatasetGeneratorParams) {
+    public static get(params?: IDatasetGeneratorParams): any {
         return DatasetGenerator.make(params).get();
     }
 

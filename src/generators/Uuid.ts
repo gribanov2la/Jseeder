@@ -1,11 +1,11 @@
 import Generator from '../core/Generator';
 
-export default class StringGenerator extends Generator {
-    public static make() {
+export class UuidGenerator extends Generator {
+    public static make(): UuidGenerator {
         return new this();
     }
 
-    public static get() {
+    public static get(): string {
         return this.make().get();
     }
 

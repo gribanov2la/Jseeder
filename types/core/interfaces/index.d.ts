@@ -1,2 +1,2 @@
 export * from './dictionary';
-export * from './generator';
+export * from './collection';
