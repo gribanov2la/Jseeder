@@ -15,7 +15,8 @@
       "single"
     ],
     "trailing-comma": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "no-empty-interface": false
   },
   "rulesDirectory": []
 }

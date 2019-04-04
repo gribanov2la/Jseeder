@@ -1,1 +1,2 @@
-export type MaskMapperType = (callback: (character: string) => string) => string;
+export type MaskMapperCallbackType = (character: string) => string;
+export type MaskMapperType = (callback: MaskMapperCallbackType) => string;

@@ -4,6 +4,36 @@
     (global = global || self, factory(global.Jseeder = {}));
 }(this, function (exports) { 'use strict';
 
+    var I18n = /** @class */ (function () {
+        function I18n(locale, dictionaries) {
+            this.locale = locale;
+            this.dictionaries = dictionaries;
+        }
+        I18n.prototype.getActiveDictionary = function () {
+            return this.dictionaries[this.locale];
+        };
+        I18n.prototype.setLocale = function (locale) {
+            this.locale = locale;
+            return this;
+        };
+        I18n.prototype.setDictionaries = function (dictionaries) {
+            this.dictionaries = dictionaries;
+            return this;
+        };
+        return I18n;
+    }());
+    var i18n = new I18n();
+
+    var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+    var en = {
+        alphabet: alphabet
+    };
+
+    var dictionaries = {
+        en: en
+    };
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -44,26 +74,6 @@
         return __assign.apply(this, arguments);
     };
 
-    var I18n = /** @class */ (function () {
-        function I18n(locale, dictionaries) {
-            this.locale = locale;
-            this.dictionaries = dictionaries;
-        }
-        I18n.prototype.getActiveDictionary = function () {
-            return this.dictionaries[this.locale];
-        };
-        I18n.prototype.setLocale = function (locale) {
-            this.locale = locale;
-            return this;
-        };
-        I18n.prototype.setDictionaries = function (dictionaries) {
-            this.dictionaries = dictionaries;
-            return this;
-        };
-        return I18n;
-    }());
-    var i18n = new I18n();
-
     var Pnrg = /** @class */ (function () {
         function Pnrg() {
             this.seed = Math.floor((Math.random() * 0xF4240) + 1);
@@ -80,13 +90,14 @@
     var pnrg = new Pnrg();
 
     var Generator = /** @class */ (function () {
-        function Generator() {
+        function Generator(params) {
             this.hexNumberCharset = '0123456789ABCDEF';
             this.decNumberCharset = '0123456789';
+            this.params = params;
             this.i18n = i18n;
             this.pnrg = pnrg;
         }
-        Generator.prototype.get = function () {
+        Generator.prototype.gen = function () {
             return this.generate();
         };
         Generator.prototype.getDictionary = function () {
@@ -101,8 +112,17 @@
                 .map(function (character) { return character === replaceableChar ? callback(character) : character; })
                 .join(''); };
         };
-        Generator.prototype.getRandomFromArray = function (array) {
-            return array[Math.floor(this.random() * array.length)];
+        Generator.prototype.getRandomFromArray = function (array, weights) {
+            var normalizedWeights = weights !== undefined ? weights : array.map(function () { return 1; });
+            var arrayLength = normalizedWeights.reduce(function (total, weight) { return weight + total; }, 0);
+            var weightResultIndex = Math.floor(this.random() * arrayLength);
+            var weightCache = 0;
+            for (var i = 0; i < array.length; i++) {
+                weightCache += normalizedWeights[i];
+                if (weightResultIndex < weightCache) {
+                    return array[i];
+                }
+            }
         };
         return Generator;
     }());
@@ -201,30 +221,16 @@
         return Collection;
     }());
 
-    var alphabet = 'abcdefghijklmnopqrstuvwxyz';
-
-    var en = {
-        alphabet: alphabet
-    };
-
-    var dictionaries = {
-        en: en
-    };
+    var collection = (function (object) { return new Collection(object); });
 
     var DatasetGenerator = /** @class */ (function (_super) {
         __extends(DatasetGenerator, _super);
-        function DatasetGenerator(_a) {
-            var _b = _a.data, data = _b === void 0 ? [] : _b;
-            var _this = _super.call(this) || this;
+        function DatasetGenerator(params) {
+            var _this = _super.call(this, params) || this;
+            var _a = params.data, data = _a === void 0 ? [] : _a;
             _this.data = data;
             return _this;
         }
-        DatasetGenerator.make = function (params) {
-            return new this(params);
-        };
-        DatasetGenerator.get = function (params) {
-            return DatasetGenerator.make(params).get();
-        };
         DatasetGenerator.prototype.generate = function () {
             return this.getRandomFromArray(this.data);
         };
@@ -237,19 +243,13 @@
 
     var StringGenerator = /** @class */ (function (_super) {
         __extends(StringGenerator, _super);
-        function StringGenerator(_a) {
-            var _b = _a.size, size = _b === void 0 ? 8 : _b, customCharset = _a.customCharset;
-            var _this = _super.call(this) || this;
+        function StringGenerator(params) {
+            var _this = _super.call(this, params) || this;
+            var _a = params.size, size = _a === void 0 ? 8 : _a, customCharset = params.customCharset;
             _this.size = size;
             _this.customCharset = customCharset;
             return _this;
         }
-        StringGenerator.make = function (params) {
-            return new this(params);
-        };
-        StringGenerator.get = function (params) {
-            return this.make(params).get();
-        };
         StringGenerator.prototype.generate = function () {
             var charset = this.getCharset();
             var value = '';
@@ -274,17 +274,11 @@
 
     var UuidGenerator = /** @class */ (function (_super) {
         __extends(UuidGenerator, _super);
-        function UuidGenerator() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
+        function UuidGenerator(params) {
+            var _this = _super.call(this, params) || this;
             _this.mask = '########-####-####-####-###########';
             return _this;
         }
-        UuidGenerator.make = function () {
-            return new this();
-        };
-        UuidGenerator.get = function () {
-            return this.make().get();
-        };
         UuidGenerator.prototype.generate = function () {
             var _this = this;
             return this.makeMaskMapper(this.mask)(function () { return _this.getRandomFromArray(_this.hexNumberCharset.split('')).toLowerCase(); });
@@ -292,28 +286,30 @@
         return UuidGenerator;
     }(Generator));
 
+    var generators = {
+        dataset: function (params) { return new DatasetGenerator(params); },
+        string: function (params) { return new StringGenerator(params); },
+        uuid: function (params) { return new UuidGenerator(params); }
+    };
 
-
-    var Generators = /*#__PURE__*/Object.freeze({
-        Dataset: DatasetGenerator,
-        String: StringGenerator,
-        Uuid: UuidGenerator
+    var generators$1 = /*#__PURE__*/Object.freeze({
+        default: generators
     });
 
-    var generatorsFunctions = {
-        dataset: function (params) { return DatasetGenerator.get(params); },
-        string: function (params) { return StringGenerator.get(params); },
-        uuid: function () { return UuidGenerator.get(); }
-    };
+    var setLocale = (function (locale) {
+        i18n.setLocale(locale);
+    });
+
+    var setSeed = (function (seed) {
+        pnrg.setSeed(seed);
+    });
 
     i18n.setDictionaries(dictionaries);
 
-    exports.Collection = Collection;
-    exports.Generators = Generators;
-    exports.Structure = Structure;
-    exports.generators = generatorsFunctions;
-    exports.i18n = i18n;
-    exports.random = pnrg;
+    exports.collection = collection;
+    exports.generators = generators$1;
+    exports.setLocale = setLocale;
+    exports.setSeed = setSeed;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

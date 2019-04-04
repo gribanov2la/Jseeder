@@ -1,26 +1,19 @@
-import Generator from '../core/Generator';
+import {Generator, IGeneratorParams} from '../core/Generator';
 
-export interface IDatasetGeneratorParams {
+export interface IDatasetGeneratorParams extends IGeneratorParams {
     data?: any[];
 }
 
 export class DatasetGenerator extends Generator {
-    public static make(params?: IDatasetGeneratorParams): DatasetGenerator {
-        return new this(params);
-    }
-
-    public static get(params?: IDatasetGeneratorParams): any {
-        return DatasetGenerator.make(params).get();
-    }
-
     protected data: any[];
 
-    constructor({data = []}: IDatasetGeneratorParams) {
-        super();
+    constructor(params?: IDatasetGeneratorParams) {
+        super(params);
+        const {data = []} = params;
         this.data = data;
     }
 
-    public generate(): any {
+    public get(): any {
         return this.getRandomFromArray(this.data);
     }
 

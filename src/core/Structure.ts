@@ -29,7 +29,7 @@ export default class Structure {
         let processedValue;
 
         if (value instanceof Generator) {
-            processedValue = value.generate();
+            processedValue = value.get();
         } else if (instanceOfICollection(value)) { // recursion to child collection
             processedValue = value.process();
         } else if (value instanceof Object) {

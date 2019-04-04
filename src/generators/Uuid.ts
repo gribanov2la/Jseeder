@@ -1,17 +1,18 @@
-import Generator from '../core/Generator';
+import {Generator, IGeneratorParams} from '../core/Generator';
+
+export interface IUuidGeneratorParams extends IGeneratorParams {
+    size?: number;
+    customCharset?: string;
+}
 
 export class UuidGenerator extends Generator {
-    public static make(): UuidGenerator {
-        return new this();
-    }
-
-    public static get(): string {
-        return this.make().get();
-    }
-
     protected readonly mask: string = '########-####-####-####-###########';
 
-    public generate(): string {
+    constructor(params?: IUuidGeneratorParams) {
+        super(params);
+    }
+
+    public get(): string {
         return this.makeMaskMapper(this.mask)(
             () => this.getRandomFromArray(this.hexNumberCharset.split('')).toLowerCase()
         );

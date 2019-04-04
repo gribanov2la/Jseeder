@@ -1,18 +1,15 @@
-import Collection from './core/Collection';
 import {i18n} from './core/services/i18n';
-import {pnrg as random} from './core/services/pnrg';
-import Structure from './core/Structure';
 import dictionaries from './dictionaries/index';
-import * as Generators from './public_api/Generators';
-import generators from './public_api/generatorsFunctions';
+import collection from './public_api/collection';
+import generators from './public_api/generators';
+import setLocale from './public_api/setLocale';
+import setSeed from './public_api/setSeed';
 
 i18n.setDictionaries(dictionaries);
 
 export {
-    Collection,
-    Generators,
-    Structure,
+    collection,
     generators,
-    i18n,
-    random
+    setLocale,
+    setSeed
 };

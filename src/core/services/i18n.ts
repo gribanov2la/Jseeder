@@ -9,8 +9,12 @@ export class I18n {
         this.dictionaries = dictionaries;
     }
 
+    public getDictionary(locale: string): IDictionary {
+        return this.dictionaries[locale];
+    }
+
     public getActiveDictionary(): IDictionary {
-        return this.dictionaries[this.locale];
+        return this.getDictionary(this.locale);
     }
 
     public setLocale(locale: string) {

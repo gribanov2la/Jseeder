@@ -1,29 +1,22 @@
-import Generator from '../core/Generator';
+import {Generator, IGeneratorParams} from '../core/Generator';
 
-export interface IStringGeneratorParams {
+export interface IStringGeneratorParams extends IGeneratorParams {
     size?: number;
     customCharset?: string;
 }
 
 export class StringGenerator extends Generator {
-    public static make(params?: IStringGeneratorParams): StringGenerator {
-        return new this(params);
-    }
-
-    public static get(params?: IStringGeneratorParams): string {
-        return this.make(params).get();
-    }
-
     protected size: number;
     protected customCharset: string;
 
-    constructor({size = 8, customCharset}: IStringGeneratorParams) {
-        super();
+    constructor(params?: IStringGeneratorParams) {
+        super(params);
+        const {size = 8, customCharset} = params;
         this.size = size;
         this.customCharset = customCharset;
     }
 
-    public generate(): string {
+    public get(): string {
         const charset: string = this.getCharset();
         let value: string = '';
 

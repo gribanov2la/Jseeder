@@ -3,10 +3,8 @@ export interface IDatasetGeneratorParams {
     data?: any[];
 }
 export declare class DatasetGenerator extends Generator {
-    static make(params?: IDatasetGeneratorParams): DatasetGenerator;
-    static get(params?: IDatasetGeneratorParams): any;
     protected data: any[];
-    constructor({ data }: IDatasetGeneratorParams);
+    constructor(params?: IDatasetGeneratorParams);
     generate(): any;
     setData(data: any[]): this;
 }

@@ -9,7 +9,7 @@ npm install jseeder --save
 ### Yarn
 
 ``` bash
-yarn add jseeder
+yarn add jseeder -s
 ```
 
 ### CDN

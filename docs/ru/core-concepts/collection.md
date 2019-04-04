@@ -4,9 +4,11 @@
 
 Пример:
 ```javascript
-Jseeder.collection({
-    uuid: Jseeder.types().uuid()
-}).setSize(2).process()
+import {collection, generators} from 'jseeder';
+
+collection({
+    uuid: generators.uuid()
+}).setSize(2).process();
 ```
 
 ```javascript
@@ -22,11 +24,13 @@ Jseeder.collection({
 `setSourceArray`.
 
 ```javascript
+import {collection, generators} from 'jseeder';
+
 const sourceArray = [{name: 'Mary'}, {name: 'Alex'}];
 
-Jseeder.collection({
-    uuid: Jseeder.types().uuid()
-}).setSourceArray(sourceArray).process()
+collection({
+    uuid: generators.uuid()
+}).setSourceArray(sourceArray).process();
 ```
 
 ```javascript
@@ -38,16 +42,16 @@ Jseeder.collection({
 
 ## Вложенные коллекции
 
-Коллекции можно вкладывать в другие коллекции:
+В коллекции можно вкладывать в другие коллекции:
 ```javascript
-Jseeder.types().uuid().generate()
+import {collection, generators} from 'jseeder';
 
-Jseeder.collection({
-    uuid: Jseeder.types().uuid(),
-    my_children: Jseeder.collection({
-        uuid: Jseeder.types().uuid(),
+collection({
+    uuid: generators.uuid(),
+    my_children: collection({
+        uuid: generators.uuid(),
     }).setSize(2)
-}).setSize(2).process()
+}).setSize(2).process();
 ```
 
 ```javascript

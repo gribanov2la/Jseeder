@@ -4,11 +4,9 @@ export interface IStringGeneratorParams {
     customCharset?: string;
 }
 export declare class StringGenerator extends Generator {
-    static make(params?: IStringGeneratorParams): StringGenerator;
-    static get(params?: IStringGeneratorParams): string;
     protected size: number;
     protected customCharset: string;
-    constructor({ size, customCharset }: IStringGeneratorParams);
+    constructor(params?: IStringGeneratorParams);
     generate(): string;
     setSize(size: number): this;
     setCustomCharset(charset: string): this;
