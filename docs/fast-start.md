@@ -10,5 +10,5 @@ let arrayWithRandom = collection({
     sex: generators.dataset({data: ['female', 'male']}),
     uuid: generators.uuid(),
     uuid2: generators.uuid()
-}).setSize(10);
+}).setSize(10).process();
 ```

@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "dev-server": "rollup -c build/dev.server.config.js -w",
+    "build": "npm run build:prod && npm run build:dev",
     "build:dev": "rollup -c build/build.dev.config.js",
     "build:prod": "rollup -c build/build.prod.config.js",
     "tslint": "tslint './src/**/*.{ts,tsx}'",
