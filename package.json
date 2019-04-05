@@ -1,6 +1,6 @@
 {
   "name": "jseeder",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A tool for creating generated data arrays",
   "main": "dist/jseeder.common.js",
   "module": "dist/jseeder.esm.js",
