@@ -1,8 +1,9 @@
 # String
 
-Генерирует строку со случайным набором символов.
+Generates a string with a random character set.
 
-## Базовое использование
+## Basic usage
+
 ```javascript
 import {generators} from 'jseeder';
 
@@ -10,14 +11,16 @@ generators.string().get() // 'fh3mv8cd'
 ```
 
 
-## Установка длины строки
+## Setting the line length
+
 ```javascript
 import {generators} from 'jseeder';
 
 generators.string({size: 20}).get() // 'v93ufbc6ffh3mv8cd7fn'
 ```
 
-## Установка кастомного набора символов
+## Setting custom character set
+
 ```javascript
 import {generators} from 'jseeder';
 

@@ -11,7 +11,7 @@ export class StringGenerator extends Generator {
 
     constructor(params?: IStringGeneratorParams) {
         super(params);
-        const {size = 8, customCharset} = params;
+        const {size = 8, customCharset = ''} = params;
         this.size = size;
         this.customCharset = customCharset;
     }

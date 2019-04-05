@@ -1,9 +1,9 @@
-# Коллекция
+# Collection
 
-**Коллекция** служит для генерации массива данных по hash-объекту с помощью **генераторов**.
+**Collection** serves to generate an array of data on a hash object using **generators**.
 
-## Базовое использование
-Пример:
+## Basic usage
+
 ```javascript
 import {collection, generators} from 'jseeder';
 
@@ -19,10 +19,9 @@ collection({
 ]
 ```
 
-## Генерация данных на основе существующего массива
+## Generating data based on an existing array
 
-Может возникнуть потребность сгенерировать данные для уже существующего массива, для этого нужно воспользоваться методом
-`setSourceArray`.
+It may be necessary to generate data for an already existing array, for this you need to use the method `setSourceArray`.
 
 ```javascript
 import {collection, generators} from 'jseeder';
@@ -41,9 +40,9 @@ collection({
 ]
 ```
 
-## Вложенные коллекции
+## Nested collections
 
-В коллекции можно вкладывать в другие коллекции:
+You can put in collections in other collections:
 ```javascript
 import {collection, generators} from 'jseeder';
 

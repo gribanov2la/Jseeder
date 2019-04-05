@@ -12,15 +12,12 @@
   ],
   "scripts": {
     "dev-server": "rollup -c build/dev.server.config.js -w",
-    "build": "npm run build:dev && npm run build:prod",
     "build:dev": "rollup -c build/build.dev.config.js",
     "build:prod": "rollup -c build/build.prod.config.js",
     "tslint": "tslint './src/**/*.{ts,tsx}'",
     "test": "npm run build && mocha --recursive ./test/**/*.js",
-    "docs:remove-prism": "sed -i.bak -e \":a\" -e 'N' -e '$!ba' -e \"s/<style src=\\\"prismjs.*css\\\"><\\/style>/ /\" node_modules/@vuepress/theme-default/layouts/Layout.vue",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "typedoc": "typedoc --out tyoedoc/ src/ --theme minimal"
+    "docs:build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
@@ -32,13 +29,13 @@
     "docsify-cli": "^4.3.0",
     "pre-push": "^0.1.1",
     "rollup": "^1.7.0",
+    "rollup-plugin-cleaner": "^0.2.0",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-tslint": "^0.2.2",
     "rollup-plugin-typescript2": "^0.19.3",
     "rollup-plugin-uglify": "^6.0.2",
     "tslint": "^5.14.0",
-    "typedoc": "^0.14.2",
     "typescript": "^3.3.3333",
     "vuepress": "^1.0.0-alpha.44"
   },

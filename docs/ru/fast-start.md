@@ -1,4 +1,4 @@
-# Использование
+# Быстрый старт
 
 ```javascript
 import {collection, generators} from 'jseeder';

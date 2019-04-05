@@ -41,7 +41,7 @@ export abstract class Generator {
     }
 
     protected getRandomFromArray<T>(array: T[], weights?: number[]): T {
-        const normalizedWeights: number[] = weights !== undefined ? weights : array.map(() => 1);
+        const normalizedWeights: number[] = weights && weights.length > 0 ? weights : array.map(() => 1);
         const arrayLength: number = normalizedWeights.reduce((total, weight) => weight + total, 0);
         const weightResultIndex: number = Math.floor(this.random() * arrayLength);
         let weightCache: number = 0;

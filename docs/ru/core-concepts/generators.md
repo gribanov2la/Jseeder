@@ -1,4 +1,4 @@
-# Генератора
+# Генераторы
 
 **Генераторы** - основной инструмент для генерации данных.
 
@@ -20,15 +20,13 @@ uuidGenerator.get(); // '85e58265-6720-490d-b36c-fd93e5560803'
 ```
 
 Генераторы могут конфигурироваться, причем у каждого генератора свой набор настроек. Настройки, принимаемые конструктором,
-можно применить на готовый экземпляра при помощи `set{ParamName}` метода:
+можно изменить при помощи `set{ParamName}` метода:
 ```javascript
 import {generators} from 'jseeder';
 
 const stringGenerator = generators.string({size: 2, customCharset: 'qwerty'});
 
 stringGenerator.get(); // qr
-
-stringGenerator.setSize(5).setCustomCharset('abcdefg')
-
+stringGenerator.setSize(5).setCustomCharset('abcdefg');
 stringGenerator.get(); // addef
 ```

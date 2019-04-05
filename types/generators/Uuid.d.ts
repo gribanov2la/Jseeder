@@ -1,10 +1,10 @@
-import Generator from '../core/Generator';
-export interface IUuidGeneratorParams {
+import { Generator, IGeneratorParams } from '../core/Generator';
+export interface IUuidGeneratorParams extends IGeneratorParams {
     size?: number;
     customCharset?: string;
 }
 export declare class UuidGenerator extends Generator {
     protected readonly mask: string;
     constructor(params?: IUuidGeneratorParams);
-    generate(): string;
+    get(): string;
 }

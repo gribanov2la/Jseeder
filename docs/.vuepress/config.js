@@ -1,37 +1,73 @@
 module.exports = {
+	base: '/Jseeder/',
 	locales: {
+		'/': {
+			lang: 'en-US',
+			title: 'Jseeder',
+			description: 'Generating a set of random data'
+		},
 		'/ru/': {
 			lang: 'ru',
 			title: 'Jseeder',
-			description: 'Централизованное управление состоянием для Vue.js'
+			description: 'Генерация набора случайных данных'
 		}
 	},
-	serviceWorker: false,
+	serviceWorker: true,
 	themeConfig: {
+		logo: '/logo.png',
 		docsDir: 'docs',
+		repo: 'gribanov2la/Jseeder',
 		locales: {
+			'/': {
+				label: 'English',
+				selectText: 'Translations',
+				sidebar: [
+					{
+						title: 'Introduction',
+						collapsable: false,
+						children: [
+							'/installation',
+							'/fast-start',
+						]
+					},
+					{
+						title: 'Core concepts',
+						collapsable: false,
+						children: [
+							'/core-concepts/generators',
+							'/core-concepts/collection',
+							'/core-concepts/seeding',
+							'/core-concepts/i18n'
+						]
+					},
+					{
+						title: 'Generators',
+						collapsable: false,
+						children: [
+							'/generators/dataset',
+							'/generators/string',
+							'/generators/uuid'
+						]
+					}
+				]
+			},
 			'/ru/': {
 				label: 'Русский',
 				selectText: 'Переводы',
-				editLinkText: 'Изменить эту страницу на GitHub',
-				nav: [
-					{
-						text: 'Руководство',
-						link: '/ru/guide/'
-					},
-					{
-						text: 'API',
-						link: '/ru/api/'
-					}
-				],
 				sidebar: [
-					'/ru/installation',
-					'/ru/usage',
+					{
+						title: 'Введение',
+						collapsable: false,
+						children: [
+							'/ru/installation',
+							'/ru/fast-start',
+						]
+					},
 					{
 						title: 'Основные понятия',
 						collapsable: false,
 						children: [
-							'/ru/core-concepts/structure',
+							'/ru/core-concepts/generators',
 							'/ru/core-concepts/collection',
 							'/ru/core-concepts/seeding',
 							'/ru/core-concepts/i18n'

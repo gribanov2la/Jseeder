@@ -1,4 +1,4 @@
-import Generator from './Generator';
+import {Generator} from './Generator';
 import {instanceOfICollection} from './interfaces/collection';
 import objectMap from './utils/objectMap';
 

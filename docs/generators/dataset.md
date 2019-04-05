@@ -1,8 +1,9 @@
 # Dataset
 
-Позволяет генерировать данные из любого пользовательского набора.
+Allows you to generate data from any custom set.
 
-## Базовое использование
+## Basic usage
+
 ```javascript
 import {generators} from 'jseeder';
 
@@ -10,7 +11,8 @@ generators.dataset({data: ['female', 'male']})
 ```
 
 
-## Установка "весов"
+## Setting "weights"
+
 ```javascript
 import {generators, collection} from 'jseeder';
 
