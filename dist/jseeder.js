@@ -94,6 +94,7 @@
 
     var Generator = /** @class */ (function () {
         function Generator(params) {
+            if (params === void 0) { params = {}; }
             this.hexNumberCharset = '0123456789ABCDEF';
             this.decNumberCharset = '0123456789';
             var _a = params.locale, locale = _a === void 0 ? '' : _a;
@@ -229,6 +230,7 @@
     var DatasetGenerator = /** @class */ (function (_super) {
         __extends(DatasetGenerator, _super);
         function DatasetGenerator(params) {
+            if (params === void 0) { params = {}; }
             var _this = _super.call(this, params) || this;
             var _a = params.data, data = _a === void 0 ? [] : _a, _b = params.weights, weights = _b === void 0 ? [] : _b;
             _this.data = data;
@@ -252,6 +254,7 @@
     var StringGenerator = /** @class */ (function (_super) {
         __extends(StringGenerator, _super);
         function StringGenerator(params) {
+            if (params === void 0) { params = {}; }
             var _this = _super.call(this, params) || this;
             var _a = params.size, size = _a === void 0 ? 8 : _a, _b = params.customCharset, customCharset = _b === void 0 ? '' : _b;
             _this.size = size;
@@ -283,6 +286,7 @@
     var UuidGenerator = /** @class */ (function (_super) {
         __extends(UuidGenerator, _super);
         function UuidGenerator(params) {
+            if (params === void 0) { params = {}; }
             var _this = _super.call(this, params) || this;
             _this.mask = '########-####-####-####-###########';
             return _this;

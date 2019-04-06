@@ -15,7 +15,7 @@ export abstract class Generator {
     protected i18n: I18n;
     protected pnrg: Pnrg;
 
-    constructor(params?: IGeneratorParams) {
+    constructor(params: IGeneratorParams = {}) {
         const {locale = ''} = params;
         this.internalLocale = locale;
         this.i18n = i18n;

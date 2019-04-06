@@ -1,14 +1,12 @@
 import {Generator, IGeneratorParams} from '../core/Generator';
 
 export interface IUuidGeneratorParams extends IGeneratorParams {
-    size?: number;
-    customCharset?: string;
 }
 
 export class UuidGenerator extends Generator {
     protected readonly mask: string = '########-####-####-####-###########';
 
-    constructor(params?: IUuidGeneratorParams) {
+    constructor(params: IUuidGeneratorParams = {}) {
         super(params);
     }
 

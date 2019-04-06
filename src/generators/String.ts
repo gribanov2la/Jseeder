@@ -9,7 +9,7 @@ export class StringGenerator extends Generator {
     protected size: number;
     protected customCharset: string;
 
-    constructor(params?: IStringGeneratorParams) {
+    constructor(params: IStringGeneratorParams = {}) {
         super(params);
         const {size = 8, customCharset = ''} = params;
         this.size = size;

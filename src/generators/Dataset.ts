@@ -9,7 +9,7 @@ export class DatasetGenerator extends Generator {
     protected data: any[];
     protected weights: number[];
 
-    constructor(params?: IDatasetGeneratorParams) {
+    constructor(params: IDatasetGeneratorParams = {}) {
         super(params);
         const {data = [], weights = []} = params;
         this.data = data;
