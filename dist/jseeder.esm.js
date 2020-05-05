@@ -71,6 +71,14 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
 var Pnrg = /** @class */ (function () {
     function Pnrg() {
         this.seed = Math.floor((Math.random() * 0xF4240) + 1);
@@ -136,7 +144,7 @@ function instanceOfICollection(object) {
 
 var objectMap = (function (object, callback) { return Object.keys(object).reduce(function (result, propName, index) {
     var _a;
-    return (__assign({}, result, (_a = {}, _a[propName] = callback(object[propName], propName, index, result), _a)));
+    return (__assign(__assign({}, result), (_a = {}, _a[propName] = callback(object[propName], propName, index, result), _a)));
 }, {}); });
 
 var Structure = /** @class */ (function () {
@@ -150,7 +158,7 @@ var Structure = /** @class */ (function () {
     };
     Structure.prototype.process = function (sourceObject) {
         if (sourceObject === void 0) { sourceObject = {}; }
-        return __assign({}, sourceObject, this.processObject(this.object));
+        return __assign(__assign({}, sourceObject), this.processObject(this.object));
     };
     Structure.prototype.processObject = function (object) {
         var _this = this;
@@ -206,7 +214,7 @@ var Collection = /** @class */ (function () {
             sourceArray = this.normalizeSourceArrayByCount(this.sourceArray, this.size);
         }
         else if (this.sourceArray != null) {
-            sourceArray = this.sourceArray.slice();
+            sourceArray = __spreadArrays(this.sourceArray);
         }
         else {
             sourceArray = (new Array(this.size || 0)).fill({});
@@ -214,7 +222,7 @@ var Collection = /** @class */ (function () {
         return sourceArray;
     };
     Collection.prototype.normalizeSourceArrayByCount = function (array, count) {
-        return count > array.length ? array.concat([new Array(count - array.length).fill({})]) : array.filter(function (item, index) { return index < count; });
+        return count > array.length ? __spreadArrays(array, [new Array(count - array.length).fill({})]) : array.filter(function (item, index) { return index < count; });
     };
     return Collection;
 }());

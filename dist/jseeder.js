@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (global = global || self, factory(global.Jseeder = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     var I18n = /** @class */ (function () {
         function I18n(locale, dictionaries) {
@@ -77,6 +77,14 @@
         return __assign.apply(this, arguments);
     };
 
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    }
+
     var Pnrg = /** @class */ (function () {
         function Pnrg() {
             this.seed = Math.floor((Math.random() * 0xF4240) + 1);
@@ -142,7 +150,7 @@
 
     var objectMap = (function (object, callback) { return Object.keys(object).reduce(function (result, propName, index) {
         var _a;
-        return (__assign({}, result, (_a = {}, _a[propName] = callback(object[propName], propName, index, result), _a)));
+        return (__assign(__assign({}, result), (_a = {}, _a[propName] = callback(object[propName], propName, index, result), _a)));
     }, {}); });
 
     var Structure = /** @class */ (function () {
@@ -156,7 +164,7 @@
         };
         Structure.prototype.process = function (sourceObject) {
             if (sourceObject === void 0) { sourceObject = {}; }
-            return __assign({}, sourceObject, this.processObject(this.object));
+            return __assign(__assign({}, sourceObject), this.processObject(this.object));
         };
         Structure.prototype.processObject = function (object) {
             var _this = this;
@@ -212,7 +220,7 @@
                 sourceArray = this.normalizeSourceArrayByCount(this.sourceArray, this.size);
             }
             else if (this.sourceArray != null) {
-                sourceArray = this.sourceArray.slice();
+                sourceArray = __spreadArrays(this.sourceArray);
             }
             else {
                 sourceArray = (new Array(this.size || 0)).fill({});
@@ -220,7 +228,7 @@
             return sourceArray;
         };
         Collection.prototype.normalizeSourceArrayByCount = function (array, count) {
-            return count > array.length ? array.concat([new Array(count - array.length).fill({})]) : array.filter(function (item, index) { return index < count; });
+            return count > array.length ? __spreadArrays(array, [new Array(count - array.length).fill({})]) : array.filter(function (item, index) { return index < count; });
         };
         return Collection;
     }());
@@ -321,5 +329,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=jseeder.js.map
